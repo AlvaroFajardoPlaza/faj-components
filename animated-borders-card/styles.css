@@ -1,0 +1,166 @@
+body {
+    background-color: #151515;
+    padding: 5%;
+    margin: auto;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+    color: #F9f9f9;
+}
+
+main {
+    padding: 2rem 0;
+}
+
+h1 {
+    background-image: conic-gradient(from var(--angle),rgb(255, 255, 255) 20%, limegreen, rgb(0, 255, 119), white);
+    background-clip: text;
+    color: transparent;
+
+    animation: 3s spin-border-card linear infinite;
+}
+
+.cards-wrapper {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    width: 100%;
+}
+
+.custom-card {
+    background-color: #282828;
+    width: 350px;
+    padding: 1.5rem;
+    border: 1px solid #252525;
+    border-radius: 1rem;
+
+    position: relative;
+    box-shadow: 10px 10px 32px #0000005c,-5px -5px 48px #ffffff08;
+}
+
+/* Tenemos que controlar la animación a través de una propiedad personalizada @property */
+@property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+/* Estos son los estilos que le damos a la card para generar nuestra base para la animación */
+.custom-card::after, .custom-card::before {
+
+    content: '';
+    width: 100%;
+    height: 100%;
+    /* background-image: conic-gradient(white, rgb(255, 0, 132), rgb(0, 8, 255), rgb(0, 204, 255), white); */
+    background-image: conic-gradient(from var(--angle), transparent 72%, rgb(45, 244, 45));
+    border-radius: 1rem;
+    padding: 3px;
+
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+
+    animation: 6s spin-border-card linear infinite;
+    transition: ease-in-out;
+}
+
+.custom-card::before {
+    filter: blur(1rem);
+    opacity: 20%
+}
+
+.custom-card:hover::after,
+.custom-card:hover::before {
+    background-image: conic-gradient(from var(--angle), transparent 48%, white, rgb(255, 0, 132));
+    animation-duration: 2s;
+}
+
+@keyframes spin-border-card {
+    from {
+        --angle: 0deg;
+    }
+    to {
+        --angle: 360deg;
+    }
+}
+
+
+.custom-card > button {
+    margin-bottom: 1rem;
+    color: white;
+    background-color: #15151500;
+    border: transparent; 
+    padding: 12px 0px;
+    text-decoration: underline;
+}
+
+
+/* ESTILOS PARA EL BOTÓN PERSONALIZADO */
+.button-wrapper {
+    width: 100%;
+    padding: 1rem 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-btn-froggy {
+    color: white;
+    font-size: 24px;
+    padding: 24px 32px;
+    background-color: #202020;
+    border-radius: 5rem;
+    border: 0px solid transparent;
+    box-shadow: 8px 8px 32px #0000001c, -8px -8px 32px #ffffff0a;
+
+    transition: 1.5s ease-in;
+
+    position: relative;
+}
+
+@property --angle-btn {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.custom-btn-froggy::after, .custom-btn-froggy::before {
+    content: '';
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+
+    border-radius: 5rem;
+    padding: 2px;
+    background-image: conic-gradient(from var(--angle-btn), transparent 24%, rgb(21, 247, 21), white);
+
+    transition: 1.5s ease-in;
+    animation: 4s btn-animated-spin-border linear infinite;
+}
+
+@keyframes btn-animated-spin-border {
+    from {
+        --angle-btn: 0deg;
+    }
+    to {
+        --angle-btn: 360deg;
+    }
+}
+
+.custom-btn-froggy:hover {
+    background-color: #121212;
+    color: #f8f8f8;
+}
+
+.custom-btn-froggy:hover::after, 
+.custom-btn-froggy:hover::before {
+    background-image: conic-gradient(from var(--angle-btn), transparent 50%, rgb(0, 255, 145), rgb(4, 0, 58));
+    animation: 1s btn-animated-spin-border linear infinite;
+}
